@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginTop="25dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorBackground">
+
+    <LinearLayout
+        android:id="@+id/layoutHeaderPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="8dp"
+                android:layout_margin="5dp"
+                android:elevation="10dp">
+
+                <ImageView
+                    android:id="@+id/img_item_profile"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:background="@drawable/bg_item_rounded"
+                    android:src="@drawable/example_image_profile"
+                    android:contentDescription="@string/content_image_profile" />
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_item_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/heebo_bold"
+                    tools:text="Lorem Ipsum"
+                    android:textColor="@color/colorTextBold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/heebo_regular"
+                    tools:text="Central Park, NYC"
+                    android:textColor="@color/colorText" />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:src="@drawable/ic_more_vertical"
+                android:contentDescription="@string/content_setting_more" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layoutImgPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="8dp"
+        android:layout_margin="5dp"
+        android:elevation="10dp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutHeaderPost">
+
+        <ImageView
+            android:id="@+id/img_post"
+            android:layout_width="match_parent"
+            android:layout_height="335dp"
+            android:src="@drawable/example_image_post"
+            android:scaleType="centerCrop"
+            android:contentDescription="@string/image_post" />
+
+    </androidx.cardview.widget.CardView>
+
+
+
+    <ImageView
+        android:id="@+id/img_like_post"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:src="@drawable/ic_like_post"
+        android:layout_marginTop="18dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/layoutImgPost"
+        android:contentDescription="@string/content_like" />
+
+    <TextView
+        android:id="@+id/tv_like_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="328.7K"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/heebo_light"
+        android:textColor="@color/colorTextBold"
+        app:layout_constraintBottom_toBottomOf="@+id/img_like_post"
+        app:layout_constraintStart_toEndOf="@+id/img_like_post"
+        app:layout_constraintTop_toTopOf="@+id/img_like_post" />
+
+    <ImageView
+        android:id="@+id/img_comment_post"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="18dp"
+        android:src="@drawable/ic_comment_post"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_like_post"
+        app:layout_constraintStart_toEndOf="@+id/tv_like_post"
+        app:layout_constraintTop_toTopOf="@+id/tv_like_post"
+        android:contentDescription="@string/content_comment" />
+
+    <TextView
+        android:id="@+id/tv_comment_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="578"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/heebo_light"
+        android:textColor="@color/colorTextBold"
+        app:layout_constraintBottom_toBottomOf="@+id/img_comment_post"
+        app:layout_constraintStart_toEndOf="@+id/img_comment_post"
+        app:layout_constraintTop_toTopOf="@+id/img_comment_post" />
+
+    <ImageView
+        android:id="@+id/img_share_post"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginStart="18dp"
+        android:src="@drawable/ic_share_post"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_comment_post"
+        app:layout_constraintStart_toEndOf="@+id/tv_comment_post"
+        app:layout_constraintTop_toTopOf="@+id/tv_comment_post"
+        android:contentDescription="@string/content_share" />
+
+    <TextView
+        android:id="@+id/tv_share_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="54"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/heebo_light"
+        android:textColor="@color/colorTextBold"
+        app:layout_constraintBottom_toBottomOf="@+id/img_share_post"
+        app:layout_constraintStart_toEndOf="@+id/img_share_post"
+        app:layout_constraintTop_toTopOf="@+id/img_share_post" />
+
+    <TextView
+        android:id="@+id/tv_content_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/heebo_medium"
+        android:textColor="@color/colorTextBold"
+        android:layout_marginTop="10dp"
+        tools:text="Lorem Ipsum"
+        app:layout_constraintTop_toBottomOf="@+id/img_like_post" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

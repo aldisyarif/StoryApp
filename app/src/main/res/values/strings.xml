@@ -1,0 +1,42 @@
+<resources>
+    <string name="app_name">Story App</string>
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="insert_your_email">masukan Email anda</string>
+    <string name="insert_your_password">Masukan Passwordmu</string>
+
+    <string name="to_register">Tidak punya akun? Buat Akun</string>
+    <string name="insert_your_name">Masukan nama anda</string>
+    <string name="title_activity_camera">CameraActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="story">Story</string>
+    <string name="log_out">Log Out</string>
+    <string name="many_posting_here">MANY POSTING HERE</string>
+    <string name="background">background</string>
+    <string name="daftar">Daftar</string>
+    <string name="story_app">Story App</string>
+    <string name="login">login</string>
+    <string name="image_post">image post</string>
+    <string name="content_share">content share</string>
+    <string name="content_comment">Content Comment</string>
+    <string name="content_like">Content Like</string>
+    <string name="content_setting_more">Content setting more</string>
+    <string name="content_image_profile">content image profile</string>
+    <string name="posting_description">Posting Description</string>
+    <string name="tulis_deskripsi_postingan">tulis deskripsi postingan</string>
+    <string name="choose_your_image">Choose your Image</string>
+    <string name="open_camera">Open Camera</string>
+    <string name="open_gallery">Open Gallery</string>
+    <string name="result_image">Result Image</string>
+    <string name="upload_feed">Upload Feed</string>
+    <string name="use_email_format">Use Email Format</string>
+    <string name="min_password">Minimum Passowrd 6 char</string>
+
+</resources>
