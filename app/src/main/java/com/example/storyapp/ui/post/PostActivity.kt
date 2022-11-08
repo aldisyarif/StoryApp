@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.location.Geocoder
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -18,27 +19,24 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.storyapp.baseclass.BaseActivity
+import com.example.storyapp.data.model.LocationModel
 import com.example.storyapp.databinding.ActivityPostBinding
+import com.example.storyapp.ui.feed.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
-//import okhttp3.RequestBody.Companion.toRequestBody
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
+import java.io.*
+import java.util.*
 
 @AndroidEntryPoint
 class PostActivity : BaseActivity() {
 
-    companion object {
-        private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
-        private const val REQUEST_CODE_PERMISSIONS = 10
-    }
+
+    var latitude: Double? = null
+    var longitude: Double? = null
 
     private val viewModel: PostViewModel by viewModels()
 
@@ -60,7 +58,7 @@ class PostActivity : BaseActivity() {
     }
     private fun observeResultPostStory() {
         lifecycleScope.launchWhenStarted {
-            viewModel.postResult.collect {
+            viewModel.postResult.observe(this@PostActivity) {
                 if (it?.error == false){
                     Toast.makeText(this@PostActivity, it.message ?: "Success Post Story", Toast.LENGTH_SHORT).show()
                     finish()
@@ -69,7 +67,7 @@ class PostActivity : BaseActivity() {
         }
 
         lifecycleScope.launchWhenStarted {
-            viewModel.errorResult.collect {
+            viewModel.errorResult.observe(this@PostActivity) {
                 Toast.makeText(this@PostActivity, it, Toast.LENGTH_SHORT).show()
             }
         }
@@ -88,13 +86,19 @@ class PostActivity : BaseActivity() {
 
     private fun uploadNewStory() {
         with(binding){
+            btnChooseLocation.setOnClickListener {
+                val intent = Intent(this@PostActivity, MainActivity::class.java)
+                intent.putExtra(MainActivity.IS_FROM_POST, true)
+                launcherIntentToMap.launch(intent)
+            }
+
             btnUploadFeed.setOnClickListener {
                 if (getFile != null && edtDescriptionStory.text?.isNotEmpty() == true){
                     val file = reduceFileImage(getFile as File)
 
                     val description = edtDescriptionStory.text.toString().toRequestBody("text/plain".toMediaType())
-                    val lat: RequestBody? = null
-                    val lon: RequestBody? = null
+                    val lat = if (latitude != null) latitude.toString().toRequestBody("text/plain".toMediaType()) else null
+                    val lon = if (longitude != null) longitude.toString().toRequestBody("text/plain".toMediaType()) else null
 
                     val requestImageFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
                     val imageMultipart: MultipartBody.Part = MultipartBody.Part.createFormData(
@@ -131,6 +135,44 @@ class PostActivity : BaseActivity() {
                 }
             }
         }
+    }
+
+    private val launcherIntentToMap = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) {
+        if (it.resultCode == RESULT_OK){
+            val result = it.data?.getParcelableExtra<LocationModel>("result") ?: return@registerForActivityResult
+            latitude = result.latitude
+            longitude = result.longitude
+
+            resultResultText(result)
+        }
+    }
+
+    private fun resultResultText(locationModel: LocationModel){
+        val attrLat = locationModel.latitude
+        val attrLong = locationModel.longitude
+        binding.tvResultLocation.text = getAddressName(attrLat, attrLong)
+
+    }
+
+    private fun getAddressName(lat: Double?, lon: Double?): String? {
+        var addressName: String? = null
+        val geocoder = Geocoder(this, Locale.getDefault())
+        try {
+            val list = lat?.let {
+                lon?.let { it1 ->
+                    geocoder.getFromLocation(it, it1, 1)
+                }
+            }
+            if (list != null && list.size != 0){
+                addressName = list[0].getAddressLine(0)
+            }
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return addressName
     }
 
 
@@ -237,5 +279,10 @@ class PostActivity : BaseActivity() {
 
     private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
         ContextCompat.checkSelfPermission(baseContext, it) == PackageManager.PERMISSION_GRANTED
+    }
+
+    companion object {
+        private val REQUIRED_PERMISSIONS = arrayOf(android.Manifest.permission.CAMERA)
+        private const val REQUEST_CODE_PERMISSIONS = 10
     }
 }

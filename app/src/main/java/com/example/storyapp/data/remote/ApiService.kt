@@ -9,6 +9,14 @@ interface ApiService {
     @GET("stories")
     suspend fun getAllStories(
         @Header("Authorization") authorization: String?,
+        @Query("page") page: Int?,
+        @Query("size") size: Int?
+    ): ServiceResponse<StoryModel>
+
+    @GET("stories")
+    suspend fun getAllMapStories(
+        @Header("Authorization") authorization: String?,
+        @Query("location") location: Int
     ): ServiceResponse<StoryModel>
 
     @Multipart

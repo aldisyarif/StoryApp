@@ -7,13 +7,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.storyapp.data.model.LocationModel
 import com.example.storyapp.data.model.StoryModel
 import com.example.storyapp.databinding.FragmentFeedBinding
+import com.example.storyapp.enums.RequestStatus
 import com.example.storyapp.ui.authentication.AuthActivity
 import com.example.storyapp.ui.detail.DetailStoryActivity
+import com.example.storyapp.ui.feed.MainActivity.Companion.IS_FROM_POST
 import com.example.storyapp.ui.post.PostActivity
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -50,6 +55,17 @@ class FeedFragment : Fragment() {
         initView()
         initViewModel()
         observeAllStory()
+        intentToMapIfFromPostStory()
+    }
+
+    private fun intentToMapIfFromPostStory() {
+        if (activity?.intent?.extras?.getBoolean(IS_FROM_POST) == true){
+            val direction = FeedFragmentDirections.actionNavigationFeedToNavigationMapFromPostStory(
+                null,
+                false
+            )
+            NavHostFragment.findNavController(this@FeedFragment).navigate(direction)
+        }
     }
 
 
@@ -58,7 +74,7 @@ class FeedFragment : Fragment() {
     }
 
     private fun initView() {
-        adapter = FeedAdapter()
+        adapter = FeedAdapter(requireContext())
         showListFeed()
 
         adapter.setOnClickCallback(object : FeedAdapter.OnItemClickCallback {
@@ -68,11 +84,28 @@ class FeedFragment : Fragment() {
                 startActivity(intent)
             }
 
+            override fun onClickMapCallback(location: LocationModel) {
+                val direction = FeedFragmentDirections.actionNavigationFeedToNavigationMap(
+                    location,
+                    false
+                )
+                NavHostFragment.findNavController(this@FeedFragment).navigate(direction)
+            }
+
+
         })
 
         binding.btnToUploadStory.setOnClickListener {
             val intent = Intent(requireContext(), PostActivity::class.java)
             startActivity(intent)
+        }
+
+        binding.btnToFeedMaps.setOnClickListener {
+            val direction = FeedFragmentDirections.actionNavigationFeedToNavigationMap(
+                null,
+                true
+            )
+            NavHostFragment.findNavController(this@FeedFragment).navigate(direction)
         }
 
         binding.btnLogout.setOnClickListener {
@@ -93,9 +126,18 @@ class FeedFragment : Fragment() {
     }
 
     private fun observeAllStory() {
-        lifecycleScope.launchWhenResumed {
-            viewModel.allStoryLiveData.collect {
-                it?.let { it1 -> adapter.setData(it1) }
+        viewModel.allStoryLiveData.observe(requireActivity()) {
+            when (it?.requestStatus){
+                RequestStatus.LOADING -> {}
+                RequestStatus.SUCCESS -> {
+                    it.data?.let { it1 ->
+                        adapter.submitData(lifecycle, it1)
+                    }
+                }
+                RequestStatus.ERROR -> {
+                    Toast.makeText(requireContext(), it.message, Toast.LENGTH_SHORT).show()
+                }
+                else -> Unit
             }
         }
 
@@ -125,7 +167,12 @@ class FeedFragment : Fragment() {
     private fun showListFeed() {
         with(binding){
             rvFeed.layoutManager = LinearLayoutManager(requireContext())
-            rvFeed.adapter = adapter
+            rvFeed.adapter = adapter.withLoadStateFooter(
+                footer = FooterStateAdapter {
+                    adapter.retry()
+
+                }
+            )
         }
     }
 

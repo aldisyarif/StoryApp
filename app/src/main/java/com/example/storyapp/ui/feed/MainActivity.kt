@@ -27,5 +27,8 @@ class MainActivity : BaseActivity() {
         startActivity(intent)
     }
 
+    companion object {
+        const val IS_FROM_POST = "is_from_post"
+    }
 
 }

@@ -11,9 +11,22 @@ class StoryRepositoryImpl(
 
     override suspend fun getAllStories(
         authorization: String?,
+        page: Int?,
+        size: Int?
     ): ServiceResponse<StoryModel> =
         service.getAllStories(
-            authorization
+            authorization,
+            page,
+            size
+        )
+
+    override suspend fun getAllMapStories(
+        authorization: String?,
+        location: Int
+    ): ServiceResponse<StoryModel> =
+        service.getAllMapStories(
+            authorization,
+            location
         )
 
     override suspend fun postNewStory(

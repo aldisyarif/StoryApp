@@ -1,17 +1,12 @@
 package com.example.storyapp.di
 
 import com.example.storyapp.repository.IStoryRepository
-import com.example.storyapp.usecase.GetAllStoryUseCase
-import com.example.storyapp.usecase.PostLoginUserUseCase
-import com.example.storyapp.usecase.PostNewStoryUseCase
-import com.example.storyapp.usecase.PostRegisterUseCase
+import com.example.storyapp.usecase.*
 import com.example.storyapp.utils.MyApplication
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import dagger.hilt.components.SingletonComponent
-import javax.inject.Singleton
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -22,6 +17,13 @@ object StoryUseCaseModule {
         iStoryRepository: IStoryRepository
     ): GetAllStoryUseCase {
         return GetAllStoryUseCase(iStoryRepository, MyApplication.applicationContext)
+    }
+
+    @Provides
+    fun provideAllMapStoryUseCase(
+        iStoryRepository: IStoryRepository
+    ): GetAllMapStoryUseCase {
+        return GetAllMapStoryUseCase(iStoryRepository, MyApplication.applicationContext)
     }
 
     @Provides

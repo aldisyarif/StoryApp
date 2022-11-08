@@ -22,7 +22,7 @@ class DetailStoryActivity : BaseActivity() {
                 Glide.with(this@DetailStoryActivity)
                     .load(obj.photoUrl)
                     .into(imgPost)
-                tvCommentPost.text = obj.description
+                tvContentPost.text = obj.description
             }
 
         }

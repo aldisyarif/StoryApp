@@ -25,7 +25,7 @@ class PostLoginUserUseCase(
                     emit(Resources.success(response))
 
                 }catch (e: Exception) {
-                    emit(Resources.error(e.message ?: "", null))
+                    emit(Resources.error(e.localizedMessage ?: "", null))
                 }
 
             }.flowOn(Dispatchers.IO)

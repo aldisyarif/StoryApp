@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="25dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -18,7 +18,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="8"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
@@ -43,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
+                android:layout_gravity="center_vertical"
                 android:orientation="vertical">
 
                 <TextView
@@ -50,12 +51,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/heebo_bold"
-                    android:text="Craig_love"
+                    tools:text="Craig_love"
                     android:textColor="@color/colorTextBold" />
 
                 <TextView
+                    android:id="@+id/btn_map"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:fontFamily="@font/heebo_regular"
                     android:text="Central Park, NYC"
                     android:textColor="@color/colorText" />
@@ -69,7 +72,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <ImageView
@@ -99,6 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="335dp"
             android:src="@drawable/example_image_post"
+            android:maxLines="4"
             android:scaleType="centerCrop" />
 
     </androidx.cardview.widget.CardView>
@@ -179,5 +183,16 @@
         android:layout_marginTop="10dp"
         android:text="The most satisfying Job #fyp #satisfying #roadmarking"
         app:layout_constraintTop_toBottomOf="@+id/img_like_post" />
+
+    <TextView
+        android:id="@+id/tv_created_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:layout_marginTop="10dp"
+        android:text="2 hari yang lalu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_content_post"
+        tools:ignore="SmallSp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

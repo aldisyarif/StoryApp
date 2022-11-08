@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_marginTop="25dp"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/colorBackground">
+    android:layout_height="wrap_content">
 
     <LinearLayout
         android:id="@+id/layoutHeaderPost"
@@ -14,13 +13,12 @@
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:baselineAligned="false">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_weight="8"
             android:orientation="horizontal">
 
             <androidx.cardview.widget.CardView
@@ -35,8 +33,7 @@
                     android:layout_width="42dp"
                     android:layout_height="42dp"
                     android:background="@drawable/bg_item_rounded"
-                    android:src="@drawable/example_image_profile"
-                    android:contentDescription="@string/content_image_profile" />
+                    android:src="@drawable/example_image_profile" />
 
 
             </androidx.cardview.widget.CardView>
@@ -46,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
+                android:layout_gravity="center_vertical"
                 android:orientation="vertical">
 
                 <TextView
@@ -53,14 +51,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/heebo_bold"
-                    tools:text="Lorem Ipsum"
+                    tools:text="Craig_love"
                     android:textColor="@color/colorTextBold" />
 
                 <TextView
+                    android:id="@+id/btn_map"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:visibility="gone"
                     android:fontFamily="@font/heebo_regular"
-                    tools:text="Central Park, NYC"
+                    android:text="Central Park, NYC"
                     android:textColor="@color/colorText" />
 
 
@@ -72,15 +72,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:src="@drawable/ic_more_vertical"
-                android:contentDescription="@string/content_setting_more" />
+                android:src="@drawable/ic_more_vertical" />
 
         </LinearLayout>
 
@@ -103,8 +102,7 @@
             android:layout_width="match_parent"
             android:layout_height="335dp"
             android:src="@drawable/example_image_post"
-            android:scaleType="centerCrop"
-            android:contentDescription="@string/image_post" />
+            android:scaleType="centerCrop" />
 
     </androidx.cardview.widget.CardView>
 
@@ -117,14 +115,13 @@
         android:src="@drawable/ic_like_post"
         android:layout_marginTop="18dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layoutImgPost"
-        android:contentDescription="@string/content_like" />
+        app:layout_constraintTop_toBottomOf="@+id/layoutImgPost" />
 
     <TextView
         android:id="@+id/tv_like_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="328.7K"
+        android:text="328.7K"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/heebo_light"
         android:textColor="@color/colorTextBold"
@@ -140,14 +137,13 @@
         android:src="@drawable/ic_comment_post"
         app:layout_constraintBottom_toBottomOf="@+id/tv_like_post"
         app:layout_constraintStart_toEndOf="@+id/tv_like_post"
-        app:layout_constraintTop_toTopOf="@+id/tv_like_post"
-        android:contentDescription="@string/content_comment" />
+        app:layout_constraintTop_toTopOf="@+id/tv_like_post" />
 
     <TextView
         android:id="@+id/tv_comment_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="578"
+        android:text="578"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/heebo_light"
         android:textColor="@color/colorTextBold"
@@ -163,14 +159,13 @@
         android:src="@drawable/ic_share_post"
         app:layout_constraintBottom_toBottomOf="@+id/tv_comment_post"
         app:layout_constraintStart_toEndOf="@+id/tv_comment_post"
-        app:layout_constraintTop_toTopOf="@+id/tv_comment_post"
-        android:contentDescription="@string/content_share" />
+        app:layout_constraintTop_toTopOf="@+id/tv_comment_post" />
 
     <TextView
         android:id="@+id/tv_share_post"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="54"
+        android:text="54"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/heebo_light"
         android:textColor="@color/colorTextBold"
@@ -185,7 +180,7 @@
         android:fontFamily="@font/heebo_medium"
         android:textColor="@color/colorTextBold"
         android:layout_marginTop="10dp"
-        tools:text="Lorem Ipsum"
+        android:text="The most satisfying Job #fyp #satisfying #roadmarking"
         app:layout_constraintTop_toBottomOf="@+id/img_like_post" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

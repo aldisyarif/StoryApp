@@ -8,6 +8,13 @@ interface IStoryRepository {
 
     suspend fun getAllStories(
         authorization: String?,
+        page: Int?,
+        size: Int?
+    ) : ServiceResponse<StoryModel>
+
+    suspend fun getAllMapStories(
+        authorization: String?,
+        location: Int
     ) : ServiceResponse<StoryModel>
 
     suspend fun postNewStory(

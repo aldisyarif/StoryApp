@@ -38,5 +38,8 @@
     <string name="upload_feed">Upload Feed</string>
     <string name="use_email_format">Use Email Format</string>
     <string name="min_password">Minimum Passowrd 6 char</string>
+    <string name="choose_your_location">choose your location</string>
+    <string name="touch">Tekan</string>
+    <string name="retry">Retry</string>
 
 </resources>
